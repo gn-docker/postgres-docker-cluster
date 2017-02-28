@@ -1,7 +1,15 @@
-FROM postgres:9.5.4
-ARG POSTGRES_VERSION=9.5
+FROM postgres:9.6.2
+ARG POSTGRES_VERSION=9.6
 
-RUN echo deb http://debian.xtdv.net/debian jessie main > /etc/apt/sources.list && apt-get update
+RUN apt-get update \
+    && apt-get install -y wget \
+    && echo deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main > \
+       /etc/apt/sources.list.d/pgdg.list \
+    && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+       apt-key add - \
+    && apt-get update
+
+# RUN echo deb http://debian.xtdv.net/debian jessie main > /etc/apt/sources.list && apt-get update
 RUN apt-get install -y postgresql-server-dev-$POSTGRES_VERSION postgresql-$POSTGRES_VERSION-repmgr  openssh-server
 
 # Need SSH for cross connections

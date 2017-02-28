@@ -1,10 +1,19 @@
 FROM debian:jessie
 ARG DOCKERIZE_VERSION=v0.2.0
-ARG POSTGRES_CLIENT_VERSION=9.4
+ARG POSTGRES_CLIENT_VERSION=9.6
 
-RUN echo deb http://debian.xtdv.net/debian jessie main > /etc/apt/sources.list && apt-get update
+RUN apt-get update \
+    && apt-get install -y wget \
+    && echo deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main > \
+       /etc/apt/sources.list.d/pgdg.list \
+    && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+       apt-key add - \
+    && apt-get update \
+    && apt-get install -y postgresql-client-$POSTGRES_CLIENT_VERSION \
+       libffi-dev libssl-dev pgpool2
+# RUN echo deb http://debian.xtdv.net/debian jessie main > /etc/apt/sources.list \
+#     && apt-get update
 
-RUN apt-get install -y postgresql-client-$POSTGRES_CLIENT_VERSION libffi-dev libssl-dev pgpool2 wget
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
     && tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
