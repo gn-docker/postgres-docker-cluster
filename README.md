@@ -18,8 +18,8 @@
 ### Artifacts
 
 Two docker images were produced:
-* Postgresql server image which can start in master or slave mode: https://hub.docker.com/r/paunin/postgresql-cluster-pgsql/
-* Pgpool service with  flexible configurations: https://hub.docker.com/r/paunin/postgresql-cluster-pgpool/
+* Postgresql server image which can start in master or slave mode: https://hub.docker.com/r/gnames/postgres-cluster-pgsql/
+* Pgpool service with  flexible configurations: https://hub.docker.com/r/gnames/postgres-cluster-pgpool/
 
 ## Schema of the example cluster
 
@@ -70,7 +70,7 @@ Role      | Name  | Upstream | Connection String
 * Pgpool:
 ```
 PGPASSWORD=$CHECK_PASSWORD psql -U $CHECK_USER -h localhost template1 -c "show pool_nodes"
- node_id | hostname | port | status | lb_weight |  role   
+ node_id | hostname | port | status | lb_weight |  role
 ---------+----------+------+--------+-----------+---------
  0       | pgmaster | 5432 | 2      | 0.250000  | primary
  1       | pgslave1 | 5432 | 2      | 0.250000  | standby
@@ -99,12 +99,12 @@ Role      | Name  | Upstream | Connection String
 
 ## Useful commands
 
-* Get map of current cluster(on any `postgres` node): 
+* Get map of current cluster(on any `postgres` node):
     * `gosu postgres repmgr cluster show` - tries to connect to all nodes on request ignore status of node in `repmgr_$CLUSTER_NAME.repl_nodes`
     * `gosu postgres psql $REPLICATION_DB -c "SELECT * FROM repmgr_$CLUSTER_NAME.repl_nodes"` - just select data from tables
 * Get matrix of connections (on any `postgres` node) `gosu postgres repmgr cluster crosscheck`
 * Get `pgpool` status (on any `pgpool` node): `PGPASSWORD=$CHECK_PASSWORD psql -U $CHECK_USER -h localhost template1 -c "show pool_nodes"`
-* In `pgpool` container check if primary node exists: `/usr/local/bin/pgpool/has_write_node.sh` 
+* In `pgpool` container check if primary node exists: `/usr/local/bin/pgpool/has_write_node.sh`
 
 Any command might be wrapped with `docker-compose` or `kubectl` - `docker-compose exec {NODE} bash -c '{COMMAND}'` or `kubectl exec {POD_NAME} -- bash -c '{COMMAND}'`
 
@@ -118,7 +118,7 @@ Check [the document](./FLOWS.md) to understand different cases of failover, spli
 
 ## FAQ
 
-* Example of real/live usage: 
+* Example of real/live usage:
     * [Lazada/Alibaba Group](http://lazada.com/)
 * Why not [sorintlab/stolon](https://github.com/sorintlab/stolon):
     * Complex logic with a lot of go-code

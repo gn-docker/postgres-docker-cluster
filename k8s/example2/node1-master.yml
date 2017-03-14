@@ -10,7 +10,7 @@ spec:
   containers:
     -
       name: application-db-node1
-      image: paunin/postgresql-cluster-pgsql
+      image: gnames/postgres-cluster-pgsql
       env: # those variables are not secret as it's just initial state of DB
         -
           name: "NODE_ID"

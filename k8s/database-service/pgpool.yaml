@@ -9,7 +9,7 @@ spec:
   containers:
     -
       name: database-pgpool
-      image: paunin/postgresql-cluster-pgpool
+      image: gnames/postgres-cluster-pgpool
       env: # those variables are not secret as it's just initial state of DB
         -
           name: "PCP_USER"

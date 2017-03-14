@@ -10,7 +10,7 @@ spec:
   containers:
     -
       name: application-db-node2
-      image: paunin/postgresql-cluster-pgsql
+      image: gnames/postgres-cluster-pgsql
       env:
         -
           name: "REPLICATION_PRIMARY_HOST"
