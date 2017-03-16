@@ -3,9 +3,7 @@ ARG POSTGRES_VERSION=9.6
 
 RUN apt-get update \
     && apt-get install -y wget \
-    && echo deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main > \
-       /etc/apt/sources.list.d/pgdg.list \
-    && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+    && echo deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main > \ /etc/apt/sources.list.d/pgdg.list \ && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
        apt-key add - \
     && apt-get update
 
@@ -77,7 +75,7 @@ ENV FORCE_CLEAN 0
 COPY ./pgsql/bin /usr/local/bin/cluster
 RUN chmod -R +x /usr/local/bin/cluster
 RUN ln -s /usr/local/bin/cluster/functions/* /usr/local/bin/
-RUN chown root gosu &&  chmod +s gosu
+# RUN chown root gosu &&  chmod +s gosu
 COPY ./pgsql/configs /var/cluster_configs
 COPY ./pgsql/ssh /home/postgres/.ssh
 
