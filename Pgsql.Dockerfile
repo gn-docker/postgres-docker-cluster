@@ -77,6 +77,7 @@ ENV FORCE_CLEAN 0
 COPY ./pgsql/bin /usr/local/bin/cluster
 RUN chmod -R +x /usr/local/bin/cluster
 RUN ln -s /usr/local/bin/cluster/functions/* /usr/local/bin/
+RUN chown root gosu &&  chmod +s gosu
 COPY ./pgsql/configs /var/cluster_configs
 COPY ./pgsql/ssh /home/postgres/.ssh
 
