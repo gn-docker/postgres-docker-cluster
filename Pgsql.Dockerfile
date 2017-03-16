@@ -1,10 +1,13 @@
 FROM postgres:9.6.2
 ARG POSTGRES_VERSION=9.6
+ENV LAST_FULL_REBUILD=2017-03-17
 
 RUN apt-get update \
     && apt-get install -y wget \
-    && echo deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main > \ /etc/apt/sources.list.d/pgdg.list \ && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
-       apt-key add - \
+    && echo deb http://apt.postgresql.org/pub/repos/apt/ jessie-pgdg main > \
+    /etc/apt/sources.list.d/pgdg.list \
+    && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | \
+      apt-key add - \
     && apt-get update
 
 # RUN echo deb http://debian.xtdv.net/debian jessie main > /etc/apt/sources.list && apt-get update
